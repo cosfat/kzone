@@ -57,7 +57,7 @@ export default function Home() {
     <div className="flex flex-col items-center">
       {loading ? (
         <div className="flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-800"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500"></div>
         </div>
       ) : events.length === 0 ? (
         <p className="text-xl text-center">Henüz etkinlik bulunmamaktadır.</p>
