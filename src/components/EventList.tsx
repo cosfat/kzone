@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Event, EventType } from '@/types';
 import { deleteEvent } from '@/services/firebase';
