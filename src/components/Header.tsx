@@ -21,14 +21,14 @@ const Header = () => {
             {user ? (
               <>
                 <li>
-                  <Link href="/admin" className="hover:text-pink-400 transition-colors">
+                  <Link href="/admin" className="hover:text-amber-800 transition-colors">
                     Admin Panel
                   </Link>
                 </li>
                 <li>
                   <button 
                     onClick={() => logout()} 
-                    className="hover:text-pink-400 transition-colors"
+                    className="hover:text-amber-800 transition-colors"
                   >
                     Çıkış
                   </button>

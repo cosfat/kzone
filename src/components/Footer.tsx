@@ -15,7 +15,7 @@ const Footer = () => {
               href="https://www.instagram.com/kzoneproductions" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-2xl hover:text-pink-400 transition-colors"
+              className="text-2xl hover:text-amber-800 transition-colors"
             >
               <FaInstagram />
             </a>
@@ -23,13 +23,13 @@ const Footer = () => {
               href="https://www.youtube.com/kzoneproductions" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-2xl hover:text-pink-400 transition-colors"
+              className="text-2xl hover:text-amber-800 transition-colors"
             >
               <FaYoutube />
             </a>
             <a 
               href="mailto:info@kzone.com.tr" 
-              className="text-2xl hover:text-pink-400 transition-colors"
+              className="text-2xl hover:text-amber-800 transition-colors"
             >
               <FaEnvelope />
             </a>

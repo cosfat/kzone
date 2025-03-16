@@ -96,7 +96,7 @@ export default function Setup() {
             <button
               onClick={createAdminUser}
               disabled={loading}
-              className="bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-amber-800 hover:bg-amber-900 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-amber-800 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'İşlem Yapılıyor...' : 'Admin Kullanıcısı ve Etkinlik Türlerini Oluştur'}
             </button>

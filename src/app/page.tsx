@@ -57,7 +57,7 @@ export default function Home() {
     <div className="flex flex-col items-center">
       {loading ? (
         <div className="flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-800"></div>
         </div>
       ) : events.length === 0 ? (
         <p className="text-xl text-center">Henüz etkinlik bulunmamaktadır.</p>
@@ -88,9 +88,9 @@ export default function Home() {
                             href={event.ticketLink} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md text-sm transition-colors"
+                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm transition-colors"
                           >
-                            Bilet Al
+                            Biletler
                           </a>
                         ) : (
                           <span className="bg-green-900 text-green-300 px-2 py-1 rounded-full text-xs">

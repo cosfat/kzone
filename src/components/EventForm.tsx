@@ -113,7 +113,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               name="eventType"
               value={formData.eventType}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800"
               required
             >
               {Object.keys(eventTypes).length > 0 ? (
@@ -139,7 +139,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               selected={selectedDate}
               onChange={handleDateChange}
               dateFormat="dd/MM/yyyy"
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800"
               required
             />
           </div>
@@ -154,7 +154,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               name="venue"
               value={formData.venue}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800"
               required
             />
           </div>
@@ -169,7 +169,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               name="city"
               value={formData.city}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800"
               required
             />
           </div>
@@ -183,7 +183,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               name="ticketStatus"
               value={formData.ticketStatus}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800"
               required
             >
               <option value="Satışta">Satışta</option>
@@ -202,7 +202,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               name="ticketLink"
               value={formData.ticketLink}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800"
             />
           </div>
         </div>
@@ -218,7 +218,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
           <button
             type="submit"
             disabled={loading}
-            className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-md transition-colors disabled:opacity-50"
+            className="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2 rounded-md transition-colors disabled:opacity-50"
           >
             {loading ? 'Kaydediliyor...' : editEvent ? 'Güncelle' : 'Kaydet'}
           </button>
