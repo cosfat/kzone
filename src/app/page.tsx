@@ -75,7 +75,7 @@ export default function Home() {
                     <td className="py-3 px-4 font-medium">{event.venue}</td>
                     <td className="py-3 px-4">
                       <div className="flex flex-col">
-                        <span className="inline-block bg-pink-500 text-white text-xs px-2 py-1 rounded-full mb-1 w-fit">
+                        <span className="font-bold">
                           {eventTypes[event.eventType]?.name || 'Diğer'}
                         </span>
                         <span className="text-gray-300">{event.city}</span>
