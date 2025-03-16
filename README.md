@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KZONE PRODUCTIONS
 
-## Getting Started
+KZONE PRODUCTIONS firmasının organizasyonlarını listeleyen web uygulaması.
 
-First, run the development server:
+## Özellikler
 
+- Etkinliklerin tarihe göre listelenmesi
+- Admin paneli ile etkinlik ekleme, düzenleme ve silme
+- Etkinlik türlerine göre filtreleme
+- Bilet satış durumu gösterimi
+- Bilet satın alma bağlantıları
+
+## Teknolojiler
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Firebase (Authentication ve Realtime Database)
+
+## Kurulum
+
+1. Repoyu klonlayın:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/cosfat/kzone.git
+cd kzone
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Bağımlılıkları yükleyin:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. `.env.local` dosyasını oluşturun ve Firebase yapılandırma bilgilerinizi ekleyin:
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-auth-domain
+NEXT_PUBLIC_FIREBASE_DATABASE_URL=your-database-url
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Geliştirme sunucusunu başlatın:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresine gidin.
 
-To learn more about Next.js, take a look at the following resources:
+## Dağıtım
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Bu proje Vercel ile dağıtılmıştır. Ana domain: [kzone.com.tr](https://kzone.com.tr)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Lisans
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Bu proje özel lisans altında dağıtılmaktadır. Tüm hakları saklıdır.
