@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { auth, db } from '@/lib/firebase';
+import { initializeEventTypes } from '@/services/firebase';
 
 export default function Setup() {
   const [loading, setLoading] = useState(false);
@@ -29,15 +30,41 @@ export default function Setup() {
         role: 'admin'
       });
       
-      setResult('Admin kullanıcısı başarıyla oluşturuldu!');
+      // Etkinlik türlerini başlat
+      await initializeEventTypes();
+      
+      setResult('Admin kullanıcısı ve etkinlik türleri başarıyla oluşturuldu!');
     } catch (error: any) {
       console.error('Admin kullanıcısı oluşturulurken hata:', error);
       
       if (error.code === 'auth/email-already-in-use') {
-        setResult('Admin kullanıcısı zaten var. Giriş yapabilirsiniz.');
+        // Kullanıcı zaten var, sadece etkinlik türlerini başlat
+        try {
+          await initializeEventTypes();
+          setResult('Admin kullanıcısı zaten var. Etkinlik türleri başarıyla oluşturuldu!');
+        } catch (initError) {
+          console.error('Etkinlik türleri oluşturulurken hata:', initError);
+          setError(`Etkinlik türleri oluşturulurken hata oluştu: ${initError}`);
+        }
       } else {
         setError(`Hata: ${error.message}`);
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const initializeEventTypesOnly = async () => {
+    setLoading(true);
+    setResult(null);
+    setError(null);
+
+    try {
+      await initializeEventTypes();
+      setResult('Etkinlik türleri başarıyla oluşturuldu!');
+    } catch (error: any) {
+      console.error('Etkinlik türleri oluşturulurken hata:', error);
+      setError(`Hata: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -62,16 +89,26 @@ export default function Setup() {
         
         <div className="flex flex-col items-center">
           <p className="mb-4 text-center">
-            Bu sayfa, Firebase Authentication'da admin kullanıcısı oluşturmak için kullanılır.
+            Bu sayfa, Firebase Authentication'da admin kullanıcısı oluşturmak ve etkinlik türlerini başlatmak için kullanılır.
           </p>
           
-          <button
-            onClick={createAdminUser}
-            disabled={loading}
-            className="bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'İşlem Yapılıyor...' : 'Admin Kullanıcısı Oluştur'}
-          </button>
+          <div className="flex flex-col space-y-4 w-full">
+            <button
+              onClick={createAdminUser}
+              disabled={loading}
+              className="bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'İşlem Yapılıyor...' : 'Admin Kullanıcısı ve Etkinlik Türlerini Oluştur'}
+            </button>
+            
+            <button
+              onClick={initializeEventTypesOnly}
+              disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'İşlem Yapılıyor...' : 'Sadece Etkinlik Türlerini Oluştur'}
+            </button>
+          </div>
         </div>
       </div>
     </div>
