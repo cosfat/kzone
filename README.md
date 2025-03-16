@@ -1,6 +1,6 @@
-# KZONE PRODUCTIONS
+# KZONE PRODUCTION
 
-KZONE PRODUCTIONS firmasının organizasyonlarını listeleyen web uygulaması.
+KZONE PRODUCTION firmasının organizasyonlarını listeleyen web uygulaması.
 
 ## Özellikler
 

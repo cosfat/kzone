@@ -46,14 +46,14 @@ const EventList: React.FC<EventListProps> = ({ events, eventTypes, onEdit, onDel
 
   if (events.length === 0) {
     return (
-      <div className="bg-black bg-opacity-70 p-6 rounded-lg shadow-lg text-center">
+      <div className="bg-[#191009] bg-opacity-70 p-6 rounded-lg shadow-lg text-center">
         <p className="text-xl">Henüz etkinlik bulunmamaktadır.</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-black bg-opacity-70 p-6 rounded-lg shadow-lg">
+    <div className="bg-[#191009] bg-opacity-70 p-6 rounded-lg shadow-lg">
       <h2 className="text-xl font-bold mb-4">Etkinlikler</h2>
       
       <div className="overflow-x-auto">

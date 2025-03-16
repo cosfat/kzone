@@ -72,7 +72,7 @@ export default function Setup() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh]">
-      <div className="bg-black bg-opacity-70 p-8 rounded-lg shadow-lg w-full max-w-md">
+      <div className="bg-[#191009] bg-opacity-70 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Admin Kullanıcısı Oluştur</h1>
         
         {error && (
@@ -96,7 +96,7 @@ export default function Setup() {
             <button
               onClick={createAdminUser}
               disabled={loading}
-              className="bg-amber-800 hover:bg-amber-900 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-amber-800 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'İşlem Yapılıyor...' : 'Admin Kullanıcısı ve Etkinlik Türlerini Oluştur'}
             </button>

@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "KZONE PRODUCTIONS",
-  description: "KZONE PRODUCTIONS organizasyonları",
+  title: "KZONE PRODUCTION",
+  description: "KZONE PRODUCTION organizasyonları",
 };
 
 export default function RootLayout({

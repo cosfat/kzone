@@ -8,11 +8,11 @@ const Header = () => {
   const { user, logout } = useAuth();
 
   return (
-    <header className="bg-black bg-opacity-80 text-white py-4">
+    <header className="bg-[#191009] bg-opacity-80 text-white py-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-3xl font-bold">
-          <Link href="/">
-            KZONE PRODUCTIONS
+          <Link href="/" className="bg-[#393327] px-4 py-2 rounded !text-white">
+            KZONE PRODUCTION
           </Link>
         </div>
         
@@ -21,14 +21,14 @@ const Header = () => {
             {user ? (
               <>
                 <li>
-                  <Link href="/admin" className="hover:text-amber-800 transition-colors">
+                  <Link href="/admin" className="hover:text-pink-400 transition-colors">
                     Admin Panel
                   </Link>
                 </li>
                 <li>
                   <button 
                     onClick={() => logout()} 
-                    className="hover:text-amber-800 transition-colors"
+                    className="hover:text-pink-400 transition-colors"
                   >
                     Çıkış
                   </button>

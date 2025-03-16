@@ -7,29 +7,29 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-black bg-opacity-80 text-white py-8 mt-auto">
+    <footer className="bg-[#191009] bg-opacity-80 text-white py-8 mt-auto">
       <div className="container mx-auto">
         <div className="flex flex-col items-center">
           <div className="flex space-x-6 mb-4">
             <a 
-              href="https://www.instagram.com/kzoneproductions" 
+              href="https://www.instagram.com/kzoneproduction" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-2xl hover:text-amber-800 transition-colors"
+              className="text-2xl hover:text-pink-400 transition-colors"
             >
               <FaInstagram />
             </a>
             <a 
-              href="https://www.youtube.com/kzoneproductions" 
+              href="https://www.youtube.com/kzoneproduction" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-2xl hover:text-amber-800 transition-colors"
+              className="text-2xl hover:text-pink-400 transition-colors"
             >
               <FaYoutube />
             </a>
             <a 
               href="mailto:info@kzone.com.tr" 
-              className="text-2xl hover:text-amber-800 transition-colors"
+              className="text-2xl hover:text-pink-400 transition-colors"
             >
               <FaEnvelope />
             </a>
