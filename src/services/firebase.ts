@@ -40,11 +40,35 @@ export const deleteEvent = async (id: string) => {
 
 // EventType işlemleri
 export const getEventTypes = async () => {
-  const snapshot = await get(ref(db, 'eventTypes'));
-  if (snapshot.exists()) {
-    return snapshot.val();
+  try {
+    console.log('Etkinlik türleri getiriliyor...');
+    const snapshot = await get(ref(db, 'eventTypes'));
+    
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      console.log('Etkinlik türleri:', data);
+      return data;
+    } else {
+      console.log('Etkinlik türleri bulunamadı, başlatılıyor...');
+      await initializeEventTypes();
+      
+      // Tekrar deneyelim
+      const newSnapshot = await get(ref(db, 'eventTypes'));
+      if (newSnapshot.exists()) {
+        const data = newSnapshot.val();
+        console.log('Etkinlik türleri başlatıldı:', data);
+        return data;
+      }
+    }
+  } catch (error) {
+    console.error('Etkinlik türleri getirilirken hata:', error);
   }
-  return [];
+  
+  // Varsayılan değerleri döndür
+  return {
+    1: { id: 1, name: "Ek İş" },
+    2: { id: 2, name: "Still Standing" }
+  };
 };
 
 export const initializeEventTypes = async () => {
@@ -83,24 +107,8 @@ export const initializeAdmin = async () => {
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    // Admin kullanıcısı için sabit kontrol
-    if (email === 'admin@kzone.com' && password === 'kzoneevents991155') {
-      try {
-        return await signInWithEmailAndPassword(auth, email, password);
-      } catch (error: any) {
-        // Eğer kullanıcı yoksa oluştur
-        if (error.code === 'auth/user-not-found') {
-          await createUserWithEmailAndPassword(auth, email, password);
-          // Yeniden giriş yap
-          return await signInWithEmailAndPassword(auth, email, password);
-        }
-        throw error;
-      }
-    } else {
-      // Normal giriş işlemi
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      return userCredential.user;
-    }
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
   } catch (error) {
     console.error('Giriş hatası:', error);
     throw error;

@@ -34,7 +34,9 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
       });
       setSelectedDate(editEvent.date ? new Date(editEvent.date) : new Date());
     }
-  }, [editEvent]);
+    
+    console.log('EventForm - Etkinlik türleri:', eventTypes);
+  }, [editEvent, eventTypes]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -114,11 +116,18 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
               required
             >
-              {Object.values(eventTypes).map((type) => (
-                <option key={type.id} value={type.id}>
-                  {type.name}
-                </option>
-              ))}
+              {Object.keys(eventTypes).length > 0 ? (
+                Object.values(eventTypes).map((type) => (
+                  <option key={type.id} value={type.id}>
+                    {type.name}
+                  </option>
+                ))
+              ) : (
+                <>
+                  <option value={1}>Ek İş</option>
+                  <option value={2}>Still Standing</option>
+                </>
+              )}
             </select>
           </div>
 
