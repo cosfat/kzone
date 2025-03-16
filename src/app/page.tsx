@@ -64,51 +64,61 @@ export default function Home() {
       ) : events.length === 0 ? (
         <p className="text-xl text-center">Henüz etkinlik bulunmamaktadır.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {events.map((event) => (
-            <div 
-              key={event.id} 
-              className="bg-black bg-opacity-70 rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
-            >
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <span className="inline-block bg-pink-500 text-white text-xs px-2 py-1 rounded-full mb-2">
-                      {eventTypes[event.eventType]?.name || 'Diğer'}
-                    </span>
-                    <h2 className="text-xl font-bold">{event.venue}</h2>
-                    <p className="text-gray-300">{event.city}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-lg font-semibold">{formatDate(event.date)}</p>
-                  </div>
-                </div>
-                
-                <div className="mt-4 flex justify-between items-center">
-                  <span className={`text-sm font-medium ${
-                    event.ticketStatus === 'Satışta' 
-                      ? 'text-green-400' 
-                      : event.ticketStatus === 'Tükendi' 
-                        ? 'text-red-400' 
-                        : 'text-yellow-400'
-                  }`}>
-                    {event.ticketStatus}
-                  </span>
-                  
-                  {event.ticketLink && event.ticketStatus === 'Satışta' && (
-                    <a 
-                      href={event.ticketLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md text-sm transition-colors"
-                    >
-                      Bilet Al
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="w-full bg-black bg-opacity-70 rounded-lg overflow-hidden shadow-lg">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-700">
+                  <th className="py-3 px-4 text-left">Etkinlik Türü</th>
+                  <th className="py-3 px-4 text-left">Mekan</th>
+                  <th className="py-3 px-4 text-left">Şehir</th>
+                  <th className="py-3 px-4 text-left">Tarih</th>
+                  <th className="py-3 px-4 text-left">Bilet Durumu</th>
+                  <th className="py-3 px-4 text-right">İşlem</th>
+                </tr>
+              </thead>
+              <tbody>
+                {events.map((event) => (
+                  <tr 
+                    key={event.id} 
+                    className="border-b border-gray-800 hover:bg-gray-900"
+                  >
+                    <td className="py-3 px-4">
+                      <span className="inline-block bg-pink-500 text-white text-xs px-2 py-1 rounded-full">
+                        {eventTypes[event.eventType]?.name || 'Diğer'}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 font-medium">{event.venue}</td>
+                    <td className="py-3 px-4 text-gray-300">{event.city}</td>
+                    <td className="py-3 px-4">{formatDate(event.date)}</td>
+                    <td className="py-3 px-4">
+                      <span className={`px-2 py-1 rounded-full text-xs ${
+                        event.ticketStatus === 'Satışta' 
+                          ? 'bg-green-900 text-green-300' 
+                          : event.ticketStatus === 'Tükendi' 
+                            ? 'bg-red-900 text-red-300' 
+                            : 'bg-yellow-900 text-yellow-300'
+                      }`}>
+                        {event.ticketStatus}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 text-right">
+                      {event.ticketLink && event.ticketStatus === 'Satışta' && (
+                        <a 
+                          href={event.ticketLink} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md text-sm transition-colors"
+                        >
+                          Bilet Al
+                        </a>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
