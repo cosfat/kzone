@@ -13,12 +13,15 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_FIREBASE_API_KEY": "@next_public_firebase_api_key",
-    "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN": "@next_public_firebase_auth_domain",
-    "NEXT_PUBLIC_FIREBASE_DATABASE_URL": "@next_public_firebase_database_url",
-    "NEXT_PUBLIC_FIREBASE_PROJECT_ID": "@next_public_firebase_project_id",
-    "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET": "@next_public_firebase_storage_bucket",
-    "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "@next_public_firebase_messaging_sender_id",
-    "NEXT_PUBLIC_FIREBASE_APP_ID": "@next_public_firebase_app_id"
-  }
+    "NEXT_PUBLIC_FIREBASE_API_KEY": "AIzaSyDJ0nSIg7to3iiPVx3ExS7hMTKQrQywr_Q",
+    "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN": "kzone-ac443.firebaseapp.com",
+    "NEXT_PUBLIC_FIREBASE_DATABASE_URL": "https://kzone-ac443-default-rtdb.europe-west1.firebasedatabase.app",
+    "NEXT_PUBLIC_FIREBASE_PROJECT_ID": "kzone-ac443",
+    "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET": "kzone-ac443.firebasestorage.app",
+    "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "297493573404",
+    "NEXT_PUBLIC_FIREBASE_APP_ID": "1:297493573404:web:ae27144f595e28d06614d9"
+  },
+  "buildCommand": "next build",
+  "framework": "nextjs",
+  "outputDirectory": ".next"
 } 
