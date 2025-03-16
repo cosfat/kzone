@@ -55,8 +55,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-4xl font-bold mb-12 text-center">Yaklaşan Etkinlikler</h1>
-      
       {loading ? (
         <div className="flex justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500"></div>
@@ -69,12 +67,10 @@ export default function Home() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-700">
-                  <th className="py-3 px-4 text-left">Etkinlik Türü</th>
-                  <th className="py-3 px-4 text-left">Mekan</th>
-                  <th className="py-3 px-4 text-left">Şehir</th>
                   <th className="py-3 px-4 text-left">Tarih</th>
-                  <th className="py-3 px-4 text-left">Bilet Durumu</th>
-                  <th className="py-3 px-4 text-right">İşlem</th>
+                  <th className="py-3 px-4 text-left">Mekan</th>
+                  <th className="py-3 px-4 text-left">Etkinlik Türü - Şehir</th>
+                  <th className="py-3 px-4 text-right">Biletler</th>
                 </tr>
               </thead>
               <tbody>
@@ -83,35 +79,40 @@ export default function Home() {
                     key={event.id} 
                     className="border-b border-gray-800 hover:bg-gray-900"
                   >
-                    <td className="py-3 px-4">
-                      <span className="inline-block bg-pink-500 text-white text-xs px-2 py-1 rounded-full">
-                        {eventTypes[event.eventType]?.name || 'Diğer'}
-                      </span>
-                    </td>
+                    <td className="py-3 px-4 font-medium">{formatDate(event.date)}</td>
                     <td className="py-3 px-4 font-medium">{event.venue}</td>
-                    <td className="py-3 px-4 text-gray-300">{event.city}</td>
-                    <td className="py-3 px-4">{formatDate(event.date)}</td>
                     <td className="py-3 px-4">
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        event.ticketStatus === 'Satışta' 
-                          ? 'bg-green-900 text-green-300' 
-                          : event.ticketStatus === 'Tükendi' 
-                            ? 'bg-red-900 text-red-300' 
-                            : 'bg-yellow-900 text-yellow-300'
-                      }`}>
-                        {event.ticketStatus}
-                      </span>
+                      <div className="flex flex-col">
+                        <span className="inline-block bg-pink-500 text-white text-xs px-2 py-1 rounded-full mb-1 w-fit">
+                          {eventTypes[event.eventType]?.name || 'Diğer'}
+                        </span>
+                        <span className="text-gray-300">{event.city}</span>
+                      </div>
                     </td>
                     <td className="py-3 px-4 text-right">
-                      {event.ticketLink && event.ticketStatus === 'Satışta' && (
-                        <a 
-                          href={event.ticketLink} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md text-sm transition-colors"
-                        >
-                          Bilet Al
-                        </a>
+                      {event.ticketStatus === 'Satışta' ? (
+                        event.ticketLink ? (
+                          <a 
+                            href={event.ticketLink} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md text-sm transition-colors"
+                          >
+                            Bilet Al
+                          </a>
+                        ) : (
+                          <span className="bg-green-900 text-green-300 px-2 py-1 rounded-full text-xs">
+                            Satışta
+                          </span>
+                        )
+                      ) : (
+                        <span className={`px-2 py-1 rounded-full text-xs ${
+                          event.ticketStatus === 'Tükendi' 
+                            ? 'bg-red-900 text-red-300' 
+                            : 'bg-yellow-900 text-yellow-300'
+                        }`}>
+                          {event.ticketStatus}
+                        </span>
                       )}
                     </td>
                   </tr>
