@@ -62,7 +62,7 @@ export const initializeEventTypes = async () => {
 export const initializeAdmin = async () => {
   try {
     // Firebase Authentication için admin kullanıcısı oluştur
-    await createUserWithEmailAndPassword(auth, 'admin@kzone.com.tr', 'kzoneevents991155');
+    await createUserWithEmailAndPassword(auth, 'admin@kzone.com', 'kzoneevents991155');
     
     // Realtime Database'e de kullanıcı bilgilerini kaydet
     await set(ref(db, 'users/admin'), {

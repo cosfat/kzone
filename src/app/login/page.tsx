@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
 export default function Login() {
-  const [email, setEmail] = useState('admin@kzone.com.tr');
+  const [email, setEmail] = useState('admin@kzone.com');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,6 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
               required
-              disabled
             />
           </div>
           

@@ -18,11 +18,6 @@ const Header = () => {
         
         <nav>
           <ul className="flex space-x-6">
-            <li>
-              <Link href="/" className="hover:text-pink-400 transition-colors">
-                Ana Sayfa
-              </Link>
-            </li>
             {user ? (
               <>
                 <li>
@@ -39,13 +34,7 @@ const Header = () => {
                   </button>
                 </li>
               </>
-            ) : (
-              <li>
-                <Link href="/login" className="hover:text-pink-400 transition-colors">
-                  Giriş
-                </Link>
-              </li>
-            )}
+            ) : null}
           </ul>
         </nav>
       </div>
