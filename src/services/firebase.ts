@@ -9,14 +9,31 @@ export const addEvent = async (event: Event) => {
 };
 
 export const getEvents = async () => {
-  const eventsRef = query(ref(db, 'eventList'), orderByChild('date'));
-  const snapshot = await get(eventsRef);
-  
-  if (snapshot.exists()) {
-    const events = snapshot.val();
-    return Object.values(events).sort((a: any, b: any) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
-    });
+  try {
+    console.log('Etkinlikler getiriliyor...');
+    const eventsRef = query(ref(db, 'eventList'), orderByChild('date'));
+    const snapshot = await get(eventsRef);
+    
+    if (snapshot.exists()) {
+      const events = snapshot.val();
+      console.log('Etkinlikler (ham veri):', events);
+      
+      // Object.values ile dizi haline getir
+      const eventsArray = Object.values(events);
+      console.log('Etkinlikler (dizi):', eventsArray);
+      
+      // Tarihe göre sırala
+      const sortedEvents = eventsArray.sort((a: any, b: any) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
+      
+      console.log('Etkinlikler (sıralı):', sortedEvents);
+      return sortedEvents;
+    } else {
+      console.log('Etkinlik bulunamadı');
+    }
+  } catch (error) {
+    console.error('Etkinlikler getirilirken hata:', error);
   }
   
   return [];

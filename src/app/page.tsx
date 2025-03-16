@@ -17,13 +17,22 @@ export default function Home() {
         const eventsData = await getEvents();
         const eventTypesData = await getEventTypes();
         
+        console.log('Ana sayfa - Etkinlikler:', eventsData);
+        console.log('Ana sayfa - Etkinlik türleri:', eventTypesData);
+        
         // EventTypes'ı id'ye göre map'leme
         const eventTypesMap: Record<number, EventType> = {};
-        Object.values(eventTypesData).forEach((type: any) => {
-          eventTypesMap[type.id] = type;
-        });
+        if (eventTypesData && typeof eventTypesData === 'object') {
+          Object.values(eventTypesData).forEach((type: any) => {
+            if (type && type.id) {
+              eventTypesMap[type.id] = type;
+            }
+          });
+        }
         
-        setEvents(eventsData as Event[]);
+        console.log('Ana sayfa - Etkinlik türleri map:', eventTypesMap);
+        
+        setEvents(Array.isArray(eventsData) ? eventsData as Event[] : []);
         setEventTypes(eventTypesMap);
       } catch (error) {
         console.error('Veri yüklenirken hata oluştu:', error);
