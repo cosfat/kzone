@@ -83,8 +83,24 @@ export const initializeAdmin = async () => {
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+    // Admin kullanıcısı için sabit kontrol
+    if (email === 'admin@kzone.com' && password === 'kzoneevents991155') {
+      try {
+        return await signInWithEmailAndPassword(auth, email, password);
+      } catch (error: any) {
+        // Eğer kullanıcı yoksa oluştur
+        if (error.code === 'auth/user-not-found') {
+          await createUserWithEmailAndPassword(auth, email, password);
+          // Yeniden giriş yap
+          return await signInWithEmailAndPassword(auth, email, password);
+        }
+        throw error;
+      }
+    } else {
+      // Normal giriş işlemi
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      return userCredential.user;
+    }
   } catch (error) {
     console.error('Giriş hatası:', error);
     throw error;
