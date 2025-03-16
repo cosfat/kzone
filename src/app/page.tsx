@@ -65,14 +65,6 @@ export default function Home() {
         <div className="w-full bg-black bg-opacity-70 rounded-lg overflow-hidden shadow-lg">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-700">
-                  <th className="py-3 px-4 text-left">Tarih</th>
-                  <th className="py-3 px-4 text-left">Mekan</th>
-                  <th className="py-3 px-4 text-left">Etkinlik Türü - Şehir</th>
-                  <th className="py-3 px-4 text-right">Biletler</th>
-                </tr>
-              </thead>
               <tbody>
                 {events.map((event) => (
                   <tr 
