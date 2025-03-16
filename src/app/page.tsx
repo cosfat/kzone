@@ -62,14 +62,14 @@ export default function Home() {
       ) : events.length === 0 ? (
         <p className="text-xl text-center">Henüz etkinlik bulunmamaktadır.</p>
       ) : (
-        <div className="w-full bg-black bg-opacity-70 rounded-lg overflow-hidden shadow-lg">
+        <div className="w-full rounded-lg overflow-hidden shadow-lg">
           <div className="overflow-x-auto">
             <table className="w-full">
               <tbody>
                 {events.map((event) => (
                   <tr 
                     key={event.id} 
-                    className="border-b border-gray-800 hover:bg-gray-900"
+                    className="border-b border-gray-700 hover:bg-black hover:bg-opacity-50"
                   >
                     <td className="py-3 px-4 font-medium">{formatDate(event.date)}</td>
                     <td className="py-3 px-4 font-medium">{event.venue}</td>
