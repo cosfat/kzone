@@ -108,7 +108,7 @@ export default function Home() {
                               href={event.ticketLink} 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="bg-red-600 hover:bg-red-700 !text-white px-4 py-2 rounded-md text-sm transition-colors uppercase font-bold"
+                              className="bg-red-600 hover:bg-red-700 !text-white px-4 py-2 text-sm transition-colors uppercase font-bold"
                             >
                               BİLET
                             </a>

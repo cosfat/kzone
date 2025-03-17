@@ -20,7 +20,7 @@ const Footer = () => {
               <FaInstagram />
             </a>
             <a 
-              href="https://www.youtube.com/kzoneproduction" 
+              href="https://www.youtube.com/@kzoneproduction" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-2xl hover:text-pink-400 transition-colors"
