@@ -61,7 +61,8 @@ export default function Home() {
       const eventDate = new Date(dateString);
       const today = new Date();
       return eventDate < today;
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error('Tarih kontrolü yapılırken hata:', error);
       return false;
     }
   };

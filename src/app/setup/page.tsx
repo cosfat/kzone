@@ -18,7 +18,7 @@ export default function Setup() {
 
     try {
       // Firebase Authentication için admin kullanıcısı oluştur
-      const userCredential = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth, 
         'admin@kzone.com', 
         'kzoneevents991155'
@@ -62,9 +62,9 @@ export default function Setup() {
     try {
       await initializeEventTypes();
       setResult('Etkinlik türleri başarıyla oluşturuldu!');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Etkinlik türleri oluşturulurken hata:', error);
-      setError(`Hata: ${error.message}`);
+      setError(`Hata: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setLoading(false);
     }

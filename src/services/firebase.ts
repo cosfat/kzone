@@ -19,12 +19,16 @@ export const getEvents = async () => {
       console.log('Etkinlikler (ham veri):', events);
       
       // Object.values ile dizi haline getir
-      const eventsArray = Object.values(events);
+      const eventsArray = Object.values(events) as unknown[];
       console.log('Etkinlikler (dizi):', eventsArray);
       
       // Tarihe göre sırala
-      const sortedEvents = eventsArray.sort((a: any, b: any) => {
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      const sortedEvents = eventsArray.sort((a, b) => {
+        const aObj = a as { date: string };
+        const bObj = b as { date: string };
+        const dateA = new Date(aObj.date).getTime();
+        const dateB = new Date(bObj.date).getTime();
+        return dateB - dateA;
       });
       
       console.log('Etkinlikler (sıralı):', sortedEvents);
@@ -114,7 +118,7 @@ export const initializeAdmin = async () => {
     return true;
   } catch (error: any) {
     // Kullanıcı zaten varsa hata verme
-    if (error.code === 'auth/email-already-in-use') {
+    if (error && typeof error === 'object' && 'code' in error && error.code === 'auth/email-already-in-use') {
       return true;
     }
     console.error('Admin kullanıcısı oluşturulurken hata:', error);
