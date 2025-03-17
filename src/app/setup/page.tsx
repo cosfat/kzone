@@ -34,10 +34,10 @@ export default function Setup() {
       await initializeEventTypes();
       
       setResult('Admin kullanıcısı ve etkinlik türleri başarıyla oluşturuldu!');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Admin kullanıcısı oluşturulurken hata:', error);
       
-      if (error.code === 'auth/email-already-in-use') {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 'auth/email-already-in-use') {
         // Kullanıcı zaten var, sadece etkinlik türlerini başlat
         try {
           await initializeEventTypes();
@@ -47,7 +47,7 @@ export default function Setup() {
           setError(`Etkinlik türleri oluşturulurken hata oluştu: ${initError}`);
         }
       } else {
-        setError(`Hata: ${error.message}`);
+        setError(`Hata: ${error instanceof Error ? error.message : String(error)}`);
       }
     } finally {
       setLoading(false);
@@ -89,7 +89,7 @@ export default function Setup() {
         
         <div className="flex flex-col items-center">
           <p className="mb-4 text-center">
-            Bu sayfa, Firebase Authentication'da admin kullanıcısı oluşturmak ve etkinlik türlerini başlatmak için kullanılır.
+            Bu sayfa, Firebase Authentication&apos;da admin kullanıcısı oluşturmak ve etkinlik türlerini başlatmak için kullanılır.
           </p>
           
           <div className="flex flex-col space-y-4 w-full">

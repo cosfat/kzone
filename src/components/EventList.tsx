@@ -39,7 +39,8 @@ const EventList: React.FC<EventListProps> = ({ events, eventTypes, onEdit, onDel
     try {
       const date = new Date(dateString);
       return format(date, 'd MMMM yyyy', { locale: tr });
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error('Tarih formatlanırken hata:', error);
       return dateString;
     }
   };

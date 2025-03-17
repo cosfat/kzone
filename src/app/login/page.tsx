@@ -20,7 +20,7 @@ export default function Login() {
     try {
       await login(email, password);
       router.push('/admin');
-    } catch (error: any) {
+    } catch (error: unknown) {
       setError('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
       console.error(error);
     } finally {

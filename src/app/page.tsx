@@ -23,9 +23,10 @@ export default function Home() {
         // EventTypes'ı id'ye göre map'leme
         const eventTypesMap: Record<number, EventType> = {};
         if (eventTypesData && typeof eventTypesData === 'object') {
-          Object.values(eventTypesData).forEach((type: any) => {
-            if (type && type.id) {
-              eventTypesMap[type.id] = type;
+          Object.values(eventTypesData).forEach((type) => {
+            if (type && typeof type === 'object' && 'id' in type && 'name' in type) {
+              const eventType = type as unknown as EventType;
+              eventTypesMap[eventType.id] = eventType;
             }
           });
         }
@@ -34,8 +35,9 @@ export default function Home() {
         
         setEvents(Array.isArray(eventsData) ? eventsData as Event[] : []);
         setEventTypes(eventTypesMap);
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('Veri yüklenirken hata oluştu:', error);
+        // Hata işleme
       } finally {
         setLoading(false);
       }
@@ -48,7 +50,8 @@ export default function Home() {
     try {
       const date = new Date(dateString);
       return format(date, 'd MMMM yyyy', { locale: tr });
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error('Tarih formatlanırken hata:', error);
       return dateString;
     }
   };

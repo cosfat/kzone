@@ -14,6 +14,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+  const [error, setError] = useState<string | null>(null);
   
   const router = useRouter();
   const { user } = useAuth();
@@ -38,9 +39,10 @@ export default function AdminPage() {
         // EventTypes'ı id'ye göre map'leme
         const eventTypesMap: Record<number, EventType> = {};
         if (eventTypesData && typeof eventTypesData === 'object') {
-          Object.values(eventTypesData).forEach((type: any) => {
-            if (type && type.id) {
-              eventTypesMap[type.id] = type;
+          Object.values(eventTypesData).forEach((type) => {
+            if (type && typeof type === 'object' && 'id' in type && 'name' in type) {
+              const eventType = type as unknown as EventType;
+              eventTypesMap[eventType.id] = eventType;
             }
           });
         }
@@ -80,6 +82,16 @@ export default function AdminPage() {
     setEvents(eventsData as Event[]);
     setShowForm(false);
     setEditingEvent(null);
+  };
+
+  const handleFormSubmit = async (event: Event) => {
+    try {
+      await handleFormSuccess();
+      await handleFormSuccess();
+    } catch (error: unknown) {
+      console.error('Etkinlik eklenirken hata oluştu:', error);
+      setError('Etkinlik eklenirken bir hata oluştu. Lütfen tekrar deneyin.');
+    }
   };
 
   if (!user) {
