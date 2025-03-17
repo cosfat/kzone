@@ -36,7 +36,7 @@ export const getEvents = async () => {
     } else {
       console.log('Etkinlik bulunamadı');
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Etkinlikler getirilirken hata:', error);
   }
   
@@ -81,7 +81,7 @@ export const getEventTypes = async () => {
         return data;
       }
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Etkinlik türleri getirilirken hata:', error);
   }
   
@@ -116,7 +116,7 @@ export const initializeAdmin = async () => {
     });
     
     return true;
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Kullanıcı zaten varsa hata verme
     if (error && typeof error === 'object' && 'code' in error && error.code === 'auth/email-already-in-use') {
       return true;
@@ -130,7 +130,7 @@ export const loginUser = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Giriş hatası:', error);
     throw error;
   }
