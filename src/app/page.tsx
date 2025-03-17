@@ -77,7 +77,7 @@ export default function Home() {
         <p className="text-xl text-center">Henüz etkinlik bulunmamaktadır.</p>
       ) : (
         <>
-          <h1 className="text-2xl font-bold mb-8 bg-[#393327] px-10 py-4 rounded-lg text-white uppercase">GÖSTERİ TARİHLERİ</h1>
+          <h1 className="text-2xl font-bold mb-8 rounded-lg text-white uppercase">GÖSTERİ TARİHLERİ</h1>
           <div className="w-full rounded-lg overflow-hidden shadow-lg">
             <div className="overflow-x-auto">
               <table className="w-full">
