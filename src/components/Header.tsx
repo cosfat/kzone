@@ -10,8 +10,8 @@ const Header = () => {
   return (
     <header className="bg-[#191009] bg-opacity-80 text-white py-4">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-3xl font-bold">
-          <Link href="/" className="bg-[#393327] px-4 py-2 rounded !text-white">
+        <div className="text-2xl font-bold">
+          <Link href="/" className="px-4 py-2 rounded !text-white tracking-widest" style={{ backgroundColor: '#3e2c24' }}>
             KZONE PRODUCTION
           </Link>
         </div>
