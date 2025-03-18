@@ -16,4 +16,9 @@ export interface EventType {
 export interface User {
   username: string;
   password: string;
+}
+
+export interface Settings {
+  homepageSortOrder: string;
+  hideOldEvents: boolean;
 } 

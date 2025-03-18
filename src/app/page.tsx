@@ -85,21 +85,21 @@ export default function Home() {
                   {events.map((event) => (
                     <tr 
                       key={event.id} 
-                      className="border-b border-gray-700 hover:bg-[#191009] hover:bg-opacity-50"
+                      className="border-b border-gray-700 hover:bg-[#191009] hover:bg-opacity-50 max-md:flex max-md:flex-col md:table-row max-md:mb-4 md:mb-0 md:bg-transparent"
                     >
-                      <td className="py-3 px-4 font-medium">{formatDate(event.date)}</td>
-                      <td className="py-3 px-4 font-medium">{event.venue}</td>
-                      <td className="py-3 px-4">
-                        <div className="flex flex-col">
+                      <td className="py-2 md:py-3 px-4 font-medium max-md:flex-1 md:flex-none max-md:border-b-0 max-md:text-center">{formatDate(event.date)}</td>
+                      <td className="py-2 md:py-3 px-4 font-medium max-md:flex-1 md:flex-none max-md:border-b-0 max-md:text-center">{event.venue}</td>
+                      <td className="py-2 md:py-3 px-4 max-md:flex-1 md:flex-none max-md:border-b-0 max-md:text-center">
+                        <div className="flex flex-col max-md:items-center">
                           <span className="font-bold">
                             {eventTypes[event.eventType]?.name || 'Diğer'}
                           </span>
                           <span className="text-gray-300">{event.city}</span>
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-right">
+                      <td className="py-3 px-4 max-md:text-center md:text-right max-md:w-full md:w-auto">
                         {isEventPassed(event.date) ? (
-                          <span className="bg-gray-800 text-gray-400 px-3 py-1 rounded-full text-xs uppercase font-bold">
+                          <span className="bg-gray-800 text-gray-400 px-3 py-1 text-xs uppercase font-bold max-md:inline-block max-md:w-full md:w-auto">
                             GEÇTİ
                           </span>
                         ) : event.ticketStatus === 'Satışta' ? (
@@ -108,17 +108,18 @@ export default function Home() {
                               href={event.ticketLink} 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="bg-red-600 hover:bg-red-700 !text-white px-4 py-2 text-sm transition-colors uppercase font-bold"
+                              style={{backgroundColor: 'white', color: 'black'}}
+                              className="px-4 max-md:py-3 md:py-3 max-md:text-base md:text-sm transition-colors uppercase font-bold max-md:block md:inline-block max-md:w-full md:w-auto max-md:mt-1 md:mt-0 max-md:rounded md:rounded-none hover:bg-gray-200 md:px-6"
                             >
                               BİLET
                             </a>
                           ) : (
-                            <span className="bg-green-900 text-green-300 px-2 py-1 rounded-full text-xs">
+                            <span className="bg-green-900 text-green-300 px-2 py-1 rounded-full text-xs max-md:inline-block max-md:w-full md:w-auto">
                               Satışta
                             </span>
                           )
                         ) : (
-                          <span className={`px-2 py-1 rounded-full text-xs ${
+                          <span className={`px-2 py-1 rounded-full text-xs max-md:inline-block max-md:w-full md:w-auto ${
                             event.ticketStatus === 'Tükendi' 
                               ? 'bg-red-900 text-red-300' 
                               : 'bg-yellow-900 text-yellow-300'
