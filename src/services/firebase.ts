@@ -1,7 +1,7 @@
 import { ref, set, get, remove, update, query, orderByChild } from 'firebase/database';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
-import { Event, EventType } from '@/types';
+import { Event, EventType, Settings } from '@/types';
 
 // Event işlemleri
 export const addEvent = async (event: Event) => {
@@ -168,7 +168,7 @@ export const getSettings = async () => {
       return settings;
     } else {
       console.log('Ayarlar bulunamadı, varsayılan ayarlar oluşturuluyor...');
-      const defaultSettings = {
+      const defaultSettings: Settings = {
         homepageSortOrder: 'desc', // varsayılan: yeniden eskiye
         hideOldEvents: false // varsayılan: eski etkinlikleri göster
       };
@@ -184,6 +184,6 @@ export const getSettings = async () => {
   }
 };
 
-export const updateSettings = async (settings: Record<string, any>) => {
+export const updateSettings = async (settings: Settings) => {
   return update(ref(db, 'settings'), settings);
 }; 
