@@ -21,7 +21,7 @@ const Header = () => {
             {user ? (
               <>
                 <li>
-                  <Link href="/admin" className="hover:text-pink-400 transition-colors">
+                  <Link href="/admin" className="hover:text-pink-400 transition-colors !text-white">
                     Admin Panel
                   </Link>
                 </li>

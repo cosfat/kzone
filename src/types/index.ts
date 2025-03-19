@@ -6,6 +6,7 @@ export interface Event {
   date: string;
   ticketStatus: string;
   ticketLink: string;
+  isVisible?: boolean;
 }
 
 export interface EventType {

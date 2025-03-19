@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { getEvents, getEventTypes, initializeEventTypes, getSettings, updateSettings } from '@/services/firebase';
+import { getEvents, getEventTypes, initializeEventTypes, getSettings, updateSettings, updateEventsVisibility } from '@/services/firebase';
 import { Event, EventType } from '@/types';
 import EventForm from '@/components/EventForm';
 import EventList from '@/components/EventList';
@@ -38,7 +38,7 @@ export default function AdminPage() {
         await initializeEventTypes();
         
         // Verileri getir
-        const eventsData = await getEvents();
+        const eventsData = await getEvents(true); // includeHidden=true ile tüm etkinlikleri getir
         const eventTypesData = await getEventTypes();
         const settingsData = await getSettings();
         
@@ -95,7 +95,7 @@ export default function AdminPage() {
 
   const handleFormSuccess = async () => {
     // Etkinlikleri yeniden yükle
-    const eventsData = await getEvents();
+    const eventsData = await getEvents(true); // includeHidden=true - admin panelinde tüm etkinlikleri göster
     setEvents(eventsData as Event[]);
     setShowForm(false);
     setEditingEvent(null);
@@ -128,17 +128,29 @@ export default function AdminPage() {
     }
   };
 
+  const handleBulkVisibilityChange = async (eventIds: string[], isVisible: boolean) => {
+    try {
+      await updateEventsVisibility(eventIds, isVisible);
+      // Etkinlikleri yeniden yükle
+      const eventsData = await getEvents(true); // includeHidden=true - admin panelinde tüm etkinlikleri göster
+      setEvents(eventsData as Event[]);
+    } catch (error) {
+      console.error('Etkinliklerin görünürlüğü değiştirilirken hata:', error);
+      throw error;
+    }
+  };
+
   if (!user) {
     return null;
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-4">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Admin Panel</h1>
         <button
           onClick={handleAddEvent}
-          className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-md transition-colors"
+          className="text-white px-4 py-2 rounded-md transition-colors"
         >
           Yeni Etkinlik Ekle
         </button>
@@ -146,7 +158,7 @@ export default function AdminPage() {
 
       {loading ? (
         <div className="flex justify-center my-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
         </div>
       ) : (
         <>
@@ -164,7 +176,12 @@ export default function AdminPage() {
                   name="homepageSortOrder"
                   value={settings.homepageSortOrder}
                   onChange={handleSettingsChange}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 appearance-none cursor-pointer bg-no-repeat bg-right pr-10"
+                  style={{
+                    backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d1d5db'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                    backgroundSize: "20px",
+                    backgroundPosition: "calc(100% - 10px) center"
+                  }}
                 >
                   <option value="desc">Yeni Tarihten Eski Tarihe</option>
                   <option value="asc">Eski Tarihten Yeni Tarihe</option>
@@ -173,17 +190,19 @@ export default function AdminPage() {
               
               <div>
                 <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="hideOldEvents"
-                    name="hideOldEvents"
-                    checked={settings.hideOldEvents}
-                    onChange={handleSettingsChange}
-                    className="h-4 w-4 mr-2 bg-gray-800 border-gray-700 rounded focus:ring-pink-500"
-                  />
-                  <label htmlFor="hideOldEvents" className="text-sm font-medium">
-                    1 Aydan Eski Etkinlikleri Ana Sayfada Gizle
-                  </label>
+                  <div className="relative flex items-center">
+                    <input
+                      type="checkbox"
+                      id="hideOldEvents"
+                      name="hideOldEvents"
+                      checked={settings.hideOldEvents}
+                      onChange={handleSettingsChange}
+                      className="h-5 w-5 rounded border-gray-700 text-pink-600 bg-gray-800 focus:ring-pink-600 focus:ring-offset-gray-800 focus:ring-offset-2 transition-all cursor-pointer"
+                    />
+                    <label htmlFor="hideOldEvents" className="ml-3 text-sm font-medium cursor-pointer select-none">
+                      1 Aydan Eski Etkinlikleri Ana Sayfada Gizle
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -215,6 +234,7 @@ export default function AdminPage() {
             eventTypes={eventTypes}
             onEdit={handleEditEvent}
             onDelete={handleFormSuccess}
+            onBulkVisibilityChange={handleBulkVisibilityChange}
           />
         </>
       )}

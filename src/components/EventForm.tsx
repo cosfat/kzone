@@ -113,7 +113,12 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               name="eventType"
               value={formData.eventType}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 appearance-none cursor-pointer bg-no-repeat bg-right pr-10"
+              style={{
+                backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d1d5db'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                backgroundSize: "20px",
+                backgroundPosition: "calc(100% - 10px) center"
+              }}
               required
             >
               {Object.keys(eventTypes).length > 0 ? (
@@ -139,7 +144,13 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               selected={selectedDate}
               onChange={handleDateChange}
               dateFormat="dd/MM/yyyy"
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 cursor-pointer"
+              calendarClassName="bg-gray-800 text-white border border-gray-700 shadow-lg rounded-md"
+              showPopperArrow={false}
+              popperClassName="date-picker-popper"
+              dayClassName={date => 
+                "hover:bg-pink-700 rounded-full mx-1 text-center"
+              }
               required
             />
           </div>
@@ -183,7 +194,12 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               name="ticketStatus"
               value={formData.ticketStatus}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 appearance-none cursor-pointer bg-no-repeat bg-right pr-10"
+              style={{
+                backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d1d5db'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                backgroundSize: "20px", 
+                backgroundPosition: "calc(100% - 10px) center"
+              }}
               required
             >
               <option value="Satışta">Satışta</option>

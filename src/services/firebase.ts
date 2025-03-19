@@ -8,7 +8,7 @@ export const addEvent = async (event: Event) => {
   return set(ref(db, `eventList/${event.id}`), event);
 };
 
-export const getEvents = async () => {
+export const getEvents = async (includeHidden: boolean = false) => {
   try {
     console.log('Etkinlikler getiriliyor...');
     const eventsRef = query(ref(db, 'eventList'), orderByChild('date'));
@@ -27,13 +27,24 @@ export const getEvents = async () => {
       const eventsArray = Object.values(events) as unknown[];
       console.log('Etkinlikler (dizi):', eventsArray);
       
-      // Eski etkinlikleri filtrele (eğer hideOldEvents etkinse)
+      // Eski etkinlikleri ve gizli etkinlikleri filtrele
       let filteredEvents = eventsArray;
-      if (hideOldEvents) {
+      
+      // Admin panelinde değilsek (includeHidden=false), gizli etkinlikleri filtrele
+      if (!includeHidden) {
+        filteredEvents = filteredEvents.filter((event) => {
+          const eventObj = event as { isVisible?: boolean };
+          // isVisible özelliği yoksa veya true ise göster
+          return eventObj.isVisible !== false;
+        });
+      }
+      
+      // Eski etkinlikleri filtreleme (eğer hideOldEvents etkinse)
+      if (hideOldEvents && !includeHidden) {
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
         
-        filteredEvents = eventsArray.filter((event) => {
+        filteredEvents = filteredEvents.filter((event) => {
           const eventObj = event as { date: string };
           const eventDate = new Date(eventObj.date);
           return eventDate >= oneMonthAgo;
@@ -186,4 +197,21 @@ export const getSettings = async () => {
 
 export const updateSettings = async (settings: Settings) => {
   return update(ref(db, 'settings'), settings);
+};
+
+// Toplu etkinlik güncelleme işlemi
+export const updateEventsVisibility = async (eventIds: string[], isVisible: boolean) => {
+  try {
+    const updates: Record<string, boolean> = {};
+    
+    // Her bir etkinliğin isVisible alanını güncelle
+    eventIds.forEach(id => {
+      updates[`eventList/${id}/isVisible`] = isVisible;
+    });
+    
+    return update(ref(db), updates);
+  } catch (error) {
+    console.error('Etkinlikler toplu güncellenirken hata:', error);
+    throw error;
+  }
 }; 

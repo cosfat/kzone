@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const eventsData = await getEvents();
+        const eventsData = await getEvents(false);
         const eventTypesData = await getEventTypes();
         
         console.log('Ana sayfa - Etkinlikler:', eventsData);
@@ -71,7 +71,7 @@ export default function Home() {
     <div className="flex flex-col items-center pt-8">
       {loading ? (
         <div className="flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
         </div>
       ) : events.length === 0 ? (
         <p className="text-xl text-center">Henüz etkinlik bulunmamaktadır.</p>
