@@ -148,7 +148,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
               calendarClassName="bg-gray-800 text-white border border-gray-700 shadow-lg rounded-md"
               showPopperArrow={false}
               popperClassName="date-picker-popper"
-              dayClassName={date => 
+              dayClassName={_ => 
                 "hover:bg-pink-700 rounded-full mx-1 text-center"
               }
               required
