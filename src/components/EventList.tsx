@@ -9,7 +9,6 @@ interface EventListProps {
   events: Event[];
   eventTypes: Record<number, EventType>;
   onEdit: (event: Event) => void;
-  onDelete: () => void;
   onBulkVisibilityChange?: (eventIds: string[], isVisible: boolean) => void;
   onBulkDelete?: (eventIds: string[]) => void;
 }
@@ -18,7 +17,6 @@ const EventList: React.FC<EventListProps> = ({
   events, 
   eventTypes, 
   onEdit, 
-  onDelete,
   onBulkVisibilityChange,
   onBulkDelete
 }) => {

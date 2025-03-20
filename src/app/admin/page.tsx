@@ -245,7 +245,6 @@ export default function AdminPage() {
             events={events}
             eventTypes={eventTypes}
             onEdit={handleEditEvent}
-            onDelete={handleFormSuccess}
             onBulkVisibilityChange={handleBulkVisibilityChange}
             onBulkDelete={handleBulkDelete}
           />
