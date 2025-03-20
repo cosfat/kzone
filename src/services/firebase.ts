@@ -90,6 +90,23 @@ export const deleteEvent = async (id: string) => {
   return remove(ref(db, `eventList/${id}`));
 };
 
+// Toplu etkinlik silme işlemi
+export const deleteEvents = async (eventIds: string[]) => {
+  try {
+    const updates: Record<string, null> = {};
+    
+    // Her bir etkinliği null olarak işaretleyerek silme
+    eventIds.forEach(id => {
+      updates[`eventList/${id}`] = null;
+    });
+    
+    return update(ref(db), updates);
+  } catch (error) {
+    console.error('Etkinlikler toplu silinirken hata:', error);
+    throw error;
+  }
+};
+
 // EventType işlemleri
 export const getEventTypes = async () => {
   try {

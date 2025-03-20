@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { getEvents, getEventTypes, initializeEventTypes, getSettings, updateSettings, updateEventsVisibility } from '@/services/firebase';
+import { getEvents, getEventTypes, initializeEventTypes, getSettings, updateSettings, updateEventsVisibility, deleteEvents } from '@/services/firebase';
 import { Event, EventType } from '@/types';
 import EventForm from '@/components/EventForm';
 import EventList from '@/components/EventList';
@@ -140,6 +140,18 @@ export default function AdminPage() {
     }
   };
 
+  const handleBulkDelete = async (eventIds: string[]) => {
+    try {
+      await deleteEvents(eventIds);
+      // Etkinlikleri yeniden yükle
+      const eventsData = await getEvents(true); // includeHidden=true - admin panelinde tüm etkinlikleri göster
+      setEvents(eventsData as Event[]);
+    } catch (error) {
+      console.error('Etkinlikler toplu silinirken hata:', error);
+      throw error;
+    }
+  };
+
   if (!user) {
     return null;
   }
@@ -235,6 +247,7 @@ export default function AdminPage() {
             onEdit={handleEditEvent}
             onDelete={handleFormSuccess}
             onBulkVisibilityChange={handleBulkVisibilityChange}
+            onBulkDelete={handleBulkDelete}
           />
         </>
       )}
