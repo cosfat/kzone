@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Event, EventType } from '@/types';
-import { deleteEvent } from '@/services/firebase';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 
@@ -23,28 +22,8 @@ const EventList: React.FC<EventListProps> = ({
   onBulkVisibilityChange,
   onBulkDelete
 }) => {
-  const [loading, setLoading] = useState(false);
-  const [deleteId, setDeleteId] = useState<string | null>(null);
   const [selectedEvents, setSelectedEvents] = useState<string[]>([]);
   const [bulkActionLoading, setBulkActionLoading] = useState(false);
-
-  const handleDelete = async (id: string) => {
-    if (window.confirm('Bu etkinliği silmek istediğinize emin misiniz?')) {
-      setLoading(true);
-      setDeleteId(id);
-      
-      try {
-        await deleteEvent(id);
-        onDelete();
-      } catch (error) {
-        console.error('Etkinlik silinirken hata oluştu:', error);
-        alert('Etkinlik silinirken bir hata oluştu. Lütfen tekrar deneyin.');
-      } finally {
-        setLoading(false);
-        setDeleteId(null);
-      }
-    }
-  };
 
   const formatDate = (dateString: string) => {
     try {
