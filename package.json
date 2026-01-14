@@ -13,7 +13,7 @@
     "@types/uuid": "^10.0.0",
     "date-fns": "^4.1.0",
     "firebase": "^11.4.0",
-    "next": "15.2.2",
+    "next": "15.2.8",
     "react": "^19.0.0",
     "react-datepicker": "^8.2.1",
     "react-dom": "^19.0.0",
