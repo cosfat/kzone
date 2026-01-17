@@ -28,7 +28,10 @@ function checkRateLimit(ip: string): boolean {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
+  // IP adresini header'lardan al (Next.js'te request.ip yok)
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  const realIp = request.headers.get('x-real-ip');
+  const ip = forwardedFor?.split(',')[0]?.trim() || realIp || 'unknown';
 
   // Admin sayfası için rate limiting
   if (pathname.startsWith('/admin')) {
