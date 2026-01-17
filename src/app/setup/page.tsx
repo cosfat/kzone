@@ -17,11 +17,21 @@ export default function Setup() {
     setError(null);
 
     try {
+      // Environment variable'dan admin bilgilerini al
+      const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'admin@kzone.com';
+      const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+      
+      if (!adminPassword) {
+        setError('Admin şifresi environment variable olarak ayarlanmamış. NEXT_PUBLIC_ADMIN_PASSWORD değişkenini ayarlayın.');
+        setLoading(false);
+        return;
+      }
+      
       // Firebase Authentication için admin kullanıcısı oluştur
       await createUserWithEmailAndPassword(
         auth, 
-        'admin@kzone.com', 
-        'kzoneevents991155'
+        adminEmail, 
+        adminPassword
       );
       
       // Realtime Database'e de kullanıcı bilgilerini kaydet

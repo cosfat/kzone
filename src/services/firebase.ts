@@ -155,8 +155,16 @@ export const initializeEventTypes = async () => {
 // Kullanıcı işlemleri
 export const initializeAdmin = async () => {
   try {
+    // Environment variable'dan admin bilgilerini al
+    const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'admin@kzone.com';
+    const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+    
+    if (!adminPassword) {
+      throw new Error('Admin şifresi environment variable olarak ayarlanmamış. NEXT_PUBLIC_ADMIN_PASSWORD değişkenini ayarlayın.');
+    }
+    
     // Firebase Authentication için admin kullanıcısı oluştur
-    await createUserWithEmailAndPassword(auth, 'admin@kzone.com', 'kzoneevents991155');
+    await createUserWithEmailAndPassword(auth, adminEmail, adminPassword);
     
     // Realtime Database'e de kullanıcı bilgilerini kaydet
     await set(ref(db, 'users/admin'), {

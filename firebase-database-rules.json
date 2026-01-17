@@ -1,0 +1,27 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid"
+      },
+      "admin": {
+        ".read": "auth != null",
+        ".write": false
+      }
+    },
+    "eventList": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email == 'admin@kzone.com'",
+      ".indexOn": "date"
+    },
+    "eventTypes": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email == 'admin@kzone.com'"
+    },
+    "settings": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email == 'admin@kzone.com'"
+    }
+  }
+}
