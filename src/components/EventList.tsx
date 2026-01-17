@@ -13,6 +13,8 @@ interface EventListProps {
   onBulkDelete?: (eventIds: string[]) => void;
 }
 
+const ITEMS_PER_PAGE = 10;
+
 const EventList: React.FC<EventListProps> = ({ 
   events, 
   eventTypes, 
@@ -22,6 +24,7 @@ const EventList: React.FC<EventListProps> = ({
 }) => {
   const [selectedEvents, setSelectedEvents] = useState<string[]>([]);
   const [bulkActionLoading, setBulkActionLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const formatDate = (dateString: string) => {
     try {
@@ -33,9 +36,20 @@ const EventList: React.FC<EventListProps> = ({
     }
   };
 
+  // Pagination hesaplamaları
+  const totalPages = Math.ceil(events.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentEvents = events.slice(startIndex, endIndex);
+
+  // Sayfa değiştiğinde seçimleri temizle
+  React.useEffect(() => {
+    setSelectedEvents([]);
+  }, [currentPage]);
+
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      setSelectedEvents(events.map(event => event.id));
+      setSelectedEvents(currentEvents.map(event => event.id));
     } else {
       setSelectedEvents([]);
     }
@@ -93,6 +107,10 @@ const EventList: React.FC<EventListProps> = ({
     }
   };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   if (events.length === 0) {
     return (
       <div className="bg-[#191009] bg-opacity-70 p-6 rounded-lg shadow-lg text-center">
@@ -104,7 +122,7 @@ const EventList: React.FC<EventListProps> = ({
   return (
     <div className="bg-[#191009] bg-opacity-70 p-6 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Etkinlikler</h2>
+        <h2 className="text-xl font-bold">Etkinlikler ({events.length} toplam)</h2>
         
         {selectedEvents.length > 0 && (
           <div className="flex items-center space-x-2">
@@ -142,7 +160,7 @@ const EventList: React.FC<EventListProps> = ({
                 <input 
                   type="checkbox" 
                   onChange={handleSelectAll}
-                  checked={selectedEvents.length === events.length && events.length > 0}
+                  checked={selectedEvents.length === currentEvents.length && currentEvents.length > 0}
                   className="h-5 w-5 rounded border-gray-700 text-pink-600 bg-gray-800 focus:ring-pink-600 focus:ring-offset-gray-800 focus:ring-offset-2 transition-all cursor-pointer"
                 />
               </th>
@@ -156,7 +174,7 @@ const EventList: React.FC<EventListProps> = ({
             </tr>
           </thead>
           <tbody>
-            {events.map((event) => (
+            {currentEvents.map((event) => (
               <tr 
                 key={event.id} 
                 className="border-b border-gray-800 hover:bg-gray-900"
@@ -218,6 +236,68 @@ const EventList: React.FC<EventListProps> = ({
           </tbody>
         </table>
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-between">
+          <div className="text-sm text-gray-400">
+            {startIndex + 1}-{Math.min(endIndex, events.length)} / {events.length} etkinlik
+          </div>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`px-3 py-1 rounded-md text-sm transition-colors ${
+                currentPage === 1
+                  ? 'bg-gray-800 text-gray-600 cursor-not-allowed'
+                  : 'bg-gray-700 hover:bg-gray-600 text-white'
+              }`}
+            >
+              Önceki
+            </button>
+            
+            <div className="flex items-center space-x-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                // İlk sayfa, son sayfa, mevcut sayfa ve yakınındaki sayfaları göster
+                if (
+                  page === 1 ||
+                  page === totalPages ||
+                  (page >= currentPage - 1 && page <= currentPage + 1)
+                ) {
+                  return (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`px-3 py-1 rounded-md text-sm transition-colors ${
+                        currentPage === page
+                          ? 'bg-pink-600 text-white'
+                          : 'bg-gray-700 hover:bg-gray-600 text-white'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  );
+                } else if (page === currentPage - 2 || page === currentPage + 2) {
+                  return <span key={page} className="px-2 text-gray-500">...</span>;
+                }
+                return null;
+              })}
+            </div>
+            
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`px-3 py-1 rounded-md text-sm transition-colors ${
+                currentPage === totalPages
+                  ? 'bg-gray-800 text-gray-600 cursor-not-allowed'
+                  : 'bg-gray-700 hover:bg-gray-600 text-white'
+              }`}
+            >
+              Sonraki
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
