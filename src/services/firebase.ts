@@ -16,7 +16,8 @@ export const getEvents = async (includeHidden: boolean = false) => {
     
     // Ayarları getir
     const settings = await getSettings();
-    const sortOrder = settings.homepageSortOrder || 'desc';
+    // Admin paneli için her zaman 'desc' (yeni tarihten eski tarihe), ana sayfa için ayardan gelen değer
+    const sortOrder = includeHidden ? 'desc' : (settings.homepageSortOrder || 'desc');
     const hideOldEvents = settings.hideOldEvents || false;
     
     if (snapshot.exists()) {
