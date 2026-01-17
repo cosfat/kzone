@@ -121,8 +121,8 @@ const EventList: React.FC<EventListProps> = ({
 
   return (
     <div className="bg-[#191009] bg-opacity-70 p-6 rounded-lg shadow-lg">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Etkinlikler ({events.length} toplam)</h2>
+      <div className="mb-4">
+        <h2 className="text-xl font-bold mb-2">Etkinlikler ({events.length} toplam)</h2>
         
         {selectedEvents.length > 0 && (
           <div className="flex items-center space-x-2">
@@ -239,7 +239,7 @@ const EventList: React.FC<EventListProps> = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-6 flex flex-col items-center space-y-3">
           <div className="text-sm text-gray-400">
             {startIndex + 1}-{Math.min(endIndex, events.length)} / {events.length} etkinlik
           </div>

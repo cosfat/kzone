@@ -174,8 +174,27 @@ export default function AdminPage() {
         </div>
       ) : (
         <>
+          {showForm && (
+            <div className="mb-8">
+              <EventForm
+                eventTypes={eventTypes}
+                onClose={handleFormClose}
+                onSuccess={handleFormSuccess}
+                editEvent={editingEvent}
+              />
+            </div>
+          )}
+
+          <EventList
+            events={events}
+            eventTypes={eventTypes}
+            onEdit={handleEditEvent}
+            onBulkVisibilityChange={handleBulkVisibilityChange}
+            onBulkDelete={handleBulkDelete}
+          />
+
           {/* Ayarlar Bölümü */}
-          <div className="bg-[#191009] bg-opacity-70 p-6 rounded-lg shadow-lg mb-8">
+          <div className="bg-[#191009] bg-opacity-70 p-6 rounded-lg shadow-lg mb-8 mt-8">
             <h2 className="text-xl font-bold mb-4">Site Ayarları</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -229,25 +248,6 @@ export default function AdminPage() {
               </button>
             </div>
           </div>
-          
-          {showForm && (
-            <div className="mb-8">
-              <EventForm
-                eventTypes={eventTypes}
-                onClose={handleFormClose}
-                onSuccess={handleFormSuccess}
-                editEvent={editingEvent}
-              />
-            </div>
-          )}
-
-          <EventList
-            events={events}
-            eventTypes={eventTypes}
-            onEdit={handleEditEvent}
-            onBulkVisibilityChange={handleBulkVisibilityChange}
-            onBulkDelete={handleBulkDelete}
-          />
         </>
       )}
     </div>
