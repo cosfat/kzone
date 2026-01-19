@@ -33,23 +33,18 @@ export function middleware(request: NextRequest) {
   const realIp = request.headers.get('x-real-ip');
   const ip = forwardedFor?.split(',')[0]?.trim() || realIp || 'unknown';
 
-  // Admin sayfası için rate limiting
-  if (pathname.startsWith('/admin')) {
-    if (!checkRateLimit(ip)) {
-      return NextResponse.json(
-        { error: 'Çok fazla deneme. Lütfen 15 dakika sonra tekrar deneyin.' },
-        { status: 429 }
-      );
-    }
-  }
-
-  // Login sayfası için rate limiting
+  // Sadece login sayfası için rate limiting (brute force koruması)
+  // Admin sayfası zaten authentication ile korunuyor, rate limiting gerekmez
   if (pathname.startsWith('/login')) {
-    if (!checkRateLimit(ip)) {
-      return NextResponse.json(
-        { error: 'Çok fazla deneme. Lütfen 15 dakika sonra tekrar deneyin.' },
-        { status: 429 }
-      );
+    // Sadece POST request'ler için rate limiting (form submit'ler için)
+    // GET request'ler (sayfa yükleme) için rate limiting yapmıyoruz
+    if (request.method === 'POST') {
+      if (!checkRateLimit(ip)) {
+        return NextResponse.json(
+          { error: 'Çok fazla deneme. Lütfen 15 dakika sonra tekrar deneyin.' },
+          { status: 429 }
+        );
+      }
     }
   }
 
@@ -57,5 +52,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/login/:path*'],
+  matcher: ['/login/:path*'],
 };
