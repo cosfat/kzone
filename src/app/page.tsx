@@ -17,9 +17,6 @@ export default function Home() {
         const eventsData = await getEvents(false);
         const eventTypesData = await getEventTypes();
         
-        console.log('Ana sayfa - Etkinlikler:', eventsData);
-        console.log('Ana sayfa - Etkinlik türleri:', eventTypesData);
-        
         // EventTypes'ı id'ye göre map'leme
         const eventTypesMap: Record<number, EventType> = {};
         if (eventTypesData && typeof eventTypesData === 'object') {
@@ -30,8 +27,6 @@ export default function Home() {
             }
           });
         }
-        
-        console.log('Ana sayfa - Etkinlik türleri map:', eventTypesMap);
         
         setEvents(Array.isArray(eventsData) ? eventsData as Event[] : []);
         setEventTypes(eventTypesMap);

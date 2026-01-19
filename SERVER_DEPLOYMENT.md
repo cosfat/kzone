@@ -97,7 +97,21 @@ FIREBASE_SERVICE_ACCOUNT_KEY='{"type":"service_account","project_id":"kzone-ac44
 - `FIREBASE_SERVICE_ACCOUNT_KEY` değeri tek satır olmalı
 - JSON içeriğini tek tırnak içine alın: `'...'`
 
-### 2.6. Build Yap
+### 2.6. (Opsiyonel) Cache Temizleme
+
+Eğer server'da disk alanı sorunu varsa, development cache'lerini temizleyebilirsiniz:
+
+```bash
+# Sadece development cache'lerini temizle (production build'i korur)
+rm -rf .next/cache .next/dev
+
+# Veya tüm .next klasörünü temizle (sonra build yapılacak)
+rm -rf .next
+```
+
+**Not:** Production'da çalışıyorsanız, sadece `.next/cache` ve `.next/dev` klasörlerini temizleyin. `.next/server` ve `.next/static` klasörleri production için gereklidir.
+
+### 2.7. Build Yap
 
 ```bash
 npm run build
@@ -105,7 +119,7 @@ npm run build
 
 Eğer build başarılı olursa, devam edin. Hata alırsanız, hata mesajını kontrol edin.
 
-### 2.7. Development Server'ı Yeniden Başlat
+### 2.8. Development Server'ı Yeniden Başlat
 
 **PM2 kullanıyorsanız:**
 ```bash
@@ -197,7 +211,6 @@ const response = await fetch('/api/auth/verify', {
   body: JSON.stringify({ idToken: token })
 });
 const data = await response.json();
-console.log(data);
 ```
 
 ### 5.3. Admin Panel Test
@@ -232,6 +245,29 @@ console.log(data);
   npm install
   npm run build
   ```
+
+### Disk Alanı Sorunu
+
+**Sorun:** Server'da disk alanı doluyor
+
+**Çözüm:**
+```bash
+# 1. Development cache'lerini temizle (güvenli)
+rm -rf .next/cache .next/dev
+
+# 2. Eğer hala yer gerekiyorsa, tüm .next'i temizle ve yeniden build yap
+rm -rf .next
+npm run build
+
+# 3. node_modules boyutunu kontrol et (normal: 600-700MB)
+du -sh node_modules
+
+# 4. Gereksiz dosyaları temizle
+rm -rf .DS_Store
+find . -name "*.log" -type f -delete
+```
+
+**Önemli:** Production'da çalışıyorsanız, `.next/server` ve `.next/static` klasörlerini silmeyin!
 
 ### Hata: Port zaten kullanımda
 

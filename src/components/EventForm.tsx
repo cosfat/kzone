@@ -35,7 +35,6 @@ const EventForm: React.FC<EventFormProps> = ({ eventTypes, onClose, onSuccess, e
       setSelectedDate(editEvent.date ? new Date(editEvent.date) : new Date());
     }
     
-    console.log('EventForm - Etkinlik türleri:', eventTypes);
   }, [editEvent, eventTypes]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {

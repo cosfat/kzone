@@ -10,7 +10,6 @@ export const addEvent = async (event: Event) => {
 
 export const getEvents = async (includeHidden: boolean = false) => {
   try {
-    console.log('Etkinlikler getiriliyor...');
     const eventsRef = query(ref(db, 'eventList'), orderByChild('date'));
     const snapshot = await get(eventsRef);
     
@@ -22,11 +21,9 @@ export const getEvents = async (includeHidden: boolean = false) => {
     
     if (snapshot.exists()) {
       const events = snapshot.val();
-      console.log('Etkinlikler (ham veri):', events);
       
       // Object.values ile dizi haline getir
       const eventsArray = Object.values(events) as unknown[];
-      console.log('Etkinlikler (dizi):', eventsArray);
       
       // Eski etkinlikleri ve gizli etkinlikleri filtrele
       let filteredEvents = eventsArray;
@@ -63,10 +60,8 @@ export const getEvents = async (includeHidden: boolean = false) => {
         return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
       });
       
-      console.log('Etkinlikler (sıralı):', sortedEvents);
       return sortedEvents;
     } else {
-      console.log('Etkinlik bulunamadı');
     }
   } catch (error: unknown) {
     console.error('Etkinlikler getirilirken hata:', error);
@@ -111,22 +106,18 @@ export const deleteEvents = async (eventIds: string[]) => {
 // EventType işlemleri
 export const getEventTypes = async () => {
   try {
-    console.log('Etkinlik türleri getiriliyor...');
     const snapshot = await get(ref(db, 'eventTypes'));
     
     if (snapshot.exists()) {
       const data = snapshot.val();
-      console.log('Etkinlik türleri:', data);
       return data;
     } else {
-      console.log('Etkinlik türleri bulunamadı, başlatılıyor...');
       await initializeEventTypes();
       
       // Tekrar deneyelim
       const newSnapshot = await get(ref(db, 'eventTypes'));
       if (newSnapshot.exists()) {
         const data = newSnapshot.val();
-        console.log('Etkinlik türleri başlatıldı:', data);
         return data;
       }
     }
@@ -196,15 +187,12 @@ export const loginUser = async (email: string, password: string) => {
 // Ayarlar işlemleri
 export const getSettings = async () => {
   try {
-    console.log('Ayarlar getiriliyor...');
     const snapshot = await get(ref(db, 'settings'));
     
     if (snapshot.exists()) {
       const settings = snapshot.val();
-      console.log('Ayarlar:', settings);
       return settings;
     } else {
-      console.log('Ayarlar bulunamadı, varsayılan ayarlar oluşturuluyor...');
       const defaultSettings: Settings = {
         homepageSortOrder: 'desc', // varsayılan: yeniden eskiye
         hideOldEvents: false // varsayılan: eski etkinlikleri göster
