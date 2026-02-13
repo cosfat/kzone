@@ -54,10 +54,11 @@ export default function Home() {
   const isEventPassed = (dateString: string) => {
     try {
       const eventDate = new Date(dateString);
+      eventDate.setHours(0, 0, 0, 0);
       const today = new Date();
+      today.setHours(0, 0, 0, 0);
       return eventDate < today;
-    } catch (error: unknown) {
-      console.error('Tarih kontrolü yapılırken hata:', error);
+    } catch {
       return false;
     }
   };
